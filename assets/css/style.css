@@ -1,0 +1,112 @@
+/**
+ * WPTally CSS
+ *
+ * @package     WPTally\CSS
+ * @since       1.0.0
+ */
+
+
+/* Search field styles
+-------------------------------------------------------------- */
+.tally-search-box {
+    position: relative;
+    width: 100%;
+    margin: 0;
+}
+
+.tally-search-form {
+    height: 40px;
+    border: 1px solid #303538;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.tally-search-form .tally-search-field {
+    font-size: 14px;
+    color: #ddd;
+    border-width: 0;
+    background: transparent;
+}
+
+.tally-search-box input[type="text"] {
+    width: 90%;
+    padding: 11px 0 12px 1em;
+    color: #333;
+    outline: none;
+}
+
+.tally-search-form .tally-search-submit {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 42px;
+    width: 80px;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    border-width: 0;
+    background-color: #303538;
+    -webkit-border-radius: 0px 5px 5px 0px;
+    -moz-border-radius: 0px 5px 5px 0px;
+    border-radius: 0px 5px 5px 0px;
+    box-shadow: none !important;
+    cursor: pointer;
+}
+
+.tally-search-results {
+    margin-top: 25px;
+}
+
+.tally-plugin {
+    width: 100%;
+    border-top: 1px solid #303538;
+}
+
+.tally-plugin:last-child {
+    border-bottom: 1px solid #303538;
+    background: #303538;
+    color: #fff;
+}
+
+.tally-plugin-left {
+    width: 80%;
+    display: inline-block;
+    padding-left: 10px;
+    margin-right: -10px;
+}
+
+.tally-plugin-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: 100%;
+}
+
+.tally-plugin-meta {
+    font-size: 1rem;
+}
+
+.tally-plugin-meta-item {
+    margin-right: 10px;
+}
+
+.tally-plugin-meta-title {
+    font-weight: bold;
+}
+
+.tally-plugin-right {
+    width: 20%;
+    display: inline-block;
+}
+
+.tally-plugin-downloads {
+    text-align: center;
+}
+
+.tally-plugin-downloads-title {
+    font-size: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+}
