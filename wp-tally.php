@@ -56,6 +56,7 @@ if( ! class_exists( 'WPTally' ) ) {
                 self::$instance = new WPTally();
                 self::$instance->setup_constants();
                 self::$instance->includes();
+                self::$instance->load_textdomain();
                 self::$instance->hooks();
                 self::$instance->api = new WPTally_API();
             }
