@@ -6,6 +6,8 @@
  * Version:         1.0.0
  * Author:          Pippin Williamson, Daniel J Griffiths & Sean Davis
  * Author URI:      http://easydigitaldownloads.com
+ * Text Domain:		wp-tally
+ * Domain Path:		/languages/
  *
  * @package         WPTally
  */
@@ -76,6 +78,18 @@ if( ! class_exists( 'WPTally' ) ) {
             // Plugin URL
             define( 'WPTALLY_URL', plugin_dir_url( __FILE__ ) );
         }
+        
+        
+		/**
+		 * load plugin language files
+		 *
+		 * @access public
+		 * @since 1.0.0
+		 * @return void
+		 */
+		public function load_textdomain() {
+			load_plugin_textdomain( 'wp-tally', false, trailingslashit( WPTALLY_DIR ) . 'languages/' );
+		}
 
 
         /**
