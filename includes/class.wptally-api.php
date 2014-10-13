@@ -144,7 +144,7 @@ class WPTally_API {
 
                     $data['info'] = array(
                         'user'              => $wp_query->query_vars['api'],
-                        'profile'           => 'https://profiles.wordpress.org/' . $wp_query->query_vars['username'],
+                        'profile'           => 'https://profiles.wordpress.org/' . $wp_query->query_vars['api'],
                         'count'             => $count,
                         'total_downloads'   => $total_downloads
                     );
