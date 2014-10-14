@@ -99,7 +99,7 @@ function wptally_shortcode( $atts, $content = null ) {
                 $results .= '<div class="tally-plugin">';
                 $results .= '<div class="tally-plugin-left">';
                     $results .= '<div class="tally-info">';
-                        $results .= '<p class="tally-count-rating">You have <span class="tally-count">' . $plugins_total . '</span> ' . $plugins_reference . ( empty( $ratings_count ) ? ' with no ratings.' : ' with a cumulative rating of <span class="tally-rating">' . number_format( $cumulative_rating, 2, '.', '' ) . '</span> out of 5 stars.</p>' );
+                        $results .= '<span class="tally-count-rating">You have <span class="tally-count">' . $plugins_total . '</span> ' . $plugins_reference . ( empty( $ratings_count ) ? ' with no ratings.' : ' with a cumulative rating of <span class="tally-rating">' . number_format( $cumulative_rating, 2, '.', '' ) . '</span> out of 5 stars.</span>' );
                     $results .= '</div>';
                     $results .= '<div class="tally-share">';
                         $results .= '<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wptally.com/?wpusername=' . esc_attr( $username ) . '" data-text="My plugins on WordPress.org have a total of ' . number_format( $total_downloads ) . ' downloads. Check it out on wptally.com">Tweet</a>
