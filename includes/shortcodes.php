@@ -45,6 +45,8 @@ function wptally_shortcode( $atts, $content = null ) {
             // How many plugins does the user have?
             $count = count( $plugins->plugins );
             $total_downloads = 0;
+            $ratings_count = 0;
+            $ratings_total = 0;
         
             if( $count == 0 ) {
                 $results .= 'No plugins found for ' . $username . '!';
@@ -82,11 +84,21 @@ function wptally_shortcode( $atts, $content = null ) {
                     $results .= '</div>';
 
                     $total_downloads = $total_downloads + $plugin->downloaded;
+                    
+                    if( ! empty( $rating ) ) {
+						$ratings_total += $rating;
+						$ratings_count++;
+					}
                 }
+                
+                $cumulative_rating = $ratings_total / $ratings_count;
 
                 // Totals row
                 $results .= '<div class="tally-plugin">';
                 $results .= '<div class="tally-plugin-left">';
+                    $results .= '<div class=tally-info">';
+                        $results .= '<p class=tally-count-rating">You have <span class=tally-count">' . number_format( $count ) . '</span> plugins with a cumulative rating of <span class=tally-rating">' . number_format( $cumulative_rating, 2, '.', '' ) . '</span> out of 5 stars</p>';
+                    $results .= '</div>';
                     $results .= '<div class=tally-share">';
                         $results .= '<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wptally.com/?wpusername=' . esc_attr( $username ) . '" data-text="My plugins on WordPress.org have a total of ' . number_format( $total_downloads ) . ' downloads. Check it out on wptally.com">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\'://platform.twitter.com/widgets.js\';fjs.parentNode.insertBefore(js,fjs);}}(document, \'script\', \'twitter-wjs\');</script>';
