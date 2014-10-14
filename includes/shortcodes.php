@@ -86,9 +86,9 @@ function wptally_shortcode( $atts, $content = null ) {
                     $total_downloads = $total_downloads + $plugin->downloaded;
                     
                     if( ! empty( $rating ) ) {
-						$ratings_total += $rating;
-						$ratings_count++;
-					}
+                        $ratings_total += $rating;
+                        $ratings_count++;
+                    }
                 }
                 
                 $cumulative_rating = $ratings_total / $ratings_count;
