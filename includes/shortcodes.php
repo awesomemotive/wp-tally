@@ -39,8 +39,11 @@ function wptally_shortcode( $atts, $content = null ) {
 
         $plugins = wptally_maybe_get_plugins( $username, ( isset( $_GET['force'] ) ? $_GET['force'] : false ) );
 
+        $results .= '<div class="tally-search-results-plugins">';
+        $results .= '<div class="tally-search-results-header">Plugins</div>';
+
         if( is_wp_error( $plugins ) ) {
-            $results .= 'An error occurred with the plugins API. Please try again later.';
+            $results .= '<div class="tally-search-error">An error occurred with the plugins API. Please try again later.</div>';
         } else {
             // How many plugins does the user have?
             $count = count( $plugins->plugins );
@@ -49,7 +52,7 @@ function wptally_shortcode( $atts, $content = null ) {
             $ratings_total = 0;
         
             if( $count == 0 ) {
-                $results .= 'No plugins found for ' . $username . '!';
+                $results .= '<div class="tally-search-error">No plugins found for ' . $username . '!</div>';
             } else {
                 foreach( $plugins->plugins as $plugin ) {
                     $rating = wptally_get_rating( $plugin->num_ratings, $plugin->ratings );
@@ -112,11 +115,16 @@ function wptally_shortcode( $atts, $content = null ) {
                 $results .= '</div>';
             }
         }
+
+        $results .= '</div>';
         
         $themes = wptally_maybe_get_themes( $username, ( isset( $_GET['force'] ) ? $_GET['force'] : false ) );
 
+        $results .= '<div class="tally-search-results-themes">';
+        $results .= '<div class="tally-search-results-header">Themes</div>';
+
         if( is_wp_error( $themes ) ) {
-            $results .= 'An error occurred with the themes API. Please try again later.';
+            $results .= '<div class="tally-search-error">An error occurred with the themes API. Please try again later.</div>';
         } else {
             // How many themes does the user have?
             $count = count( $themes );
@@ -125,7 +133,7 @@ function wptally_shortcode( $atts, $content = null ) {
             $ratings_total = 0;
         
             if( $count == 0 ) {
-                $results .= 'No themes found for ' . $username . '!';
+                $results .= '<div class="tally-search-error">No themes found for ' . $username . '!</div>';
             } else {
                 foreach( $themes as $theme ) {
                     $rating = wptally_get_rating( $theme->num_ratings, $theme->rating );
@@ -187,6 +195,8 @@ function wptally_shortcode( $atts, $content = null ) {
                 $results .= '</div>';
             }
         }
+
+        $results .= '</div>';
     }
 
     $results .= '</div>';

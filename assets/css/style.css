@@ -60,6 +60,32 @@
     margin-top: 25px;
 }
 
+.tally-search-results-plugins,
+.tally-search-results-themes {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #303538;
+}
+
+.tally-search-results-plugins {
+    margin-bottom: 20px;
+}
+
+.tally-search-results-header {
+    background-color: #303538;
+    color: #fff;
+    font-weight: bold;
+    font-size: 2rem;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.tally-search-error {
+    padding: 10px;
+    font-size: 1.5rem;
+}
+
 .tally-plugin {
     width: 100%;
     border-top: 1px solid #303538;
