@@ -107,13 +107,19 @@ class WPTally_API {
         } else {
             if( isset( $wp_query->query_vars['force'] ) && $wp_query->query_vars['force'] == 'true' ) {
                 delete_transient( 'wp-tally-user-' . $wp_query->query_vars['api'] );
+                delete_transient( 'wp-tally-user-themes-' . $wp_query->query_vars['api'] );
                 $force = true;
             }
+
+            $data['info'] = array(
+                'user'      => $wp_query->query_vars['api'],
+                'profile'   => 'https://profiles.wordpress.org/' . $wp_query->query_vars['api']
+            );
 
             $plugins = wptally_maybe_get_plugins( $wp_query->query_vars['api'], ( isset( $force ) ? true : false ) );
 
             if( is_wp_error( $plugins ) ) {
-                $data = array(
+                $data['plugins'] = array(
                     'error' => 'An error occurred with the plugins API'
                 );
             } else {
@@ -122,7 +128,7 @@ class WPTally_API {
                 $total_downloads = 0;
 
                 if( $count == 0 ) {
-                    $data = array(
+                    $data['plugins'] = array(
                         'error' => 'No plugins found for ' . $wp_query->query_vars['api']
                     );
                 } else {
@@ -142,12 +148,44 @@ class WPTally_API {
                         $total_downloads = $total_downloads + $plugin->downloaded;
                     }
 
-                    $data['info'] = array(
-                        'user'              => $wp_query->query_vars['api'],
-                        'profile'           => 'https://profiles.wordpress.org/' . $wp_query->query_vars['api'],
-                        'count'             => $count,
-                        'total_downloads'   => $total_downloads
+                    $data['info']['plugin_count']           = $count;
+                    $data['info']['total_plugin_downloads'] = $total_downloads;
+                }
+            }
+            
+            $themes = wptally_maybe_get_themes( $wp_query->query_vars['api'], ( isset( $force ) ? true : false ) );
+
+            if( is_wp_error( $themes ) ) {
+                $data['themes'] = array(
+                    'error' => 'An error occurred with the themes API'
+                );
+            } else {
+                // How many plugins does the user have?
+                $count = count( $themes );
+                $total_downloads = 0;
+
+                if( $count == 0 ) {
+                    $data['themes'] = array(
+                        'error' => 'No plugins found for ' . $wp_query->query_vars['api']
                     );
+                } else {
+                    foreach( $themes as $theme ) {
+                        $rating = wptally_get_rating( $theme->num_ratings, $theme->rating );
+
+                        $data['themes'][$theme->slug] = array(
+                            'name'      => $theme->name,
+                            'url'       => 'http://wordpress.org/themes/' . $theme->slug,
+                            'version'   => $theme->version,
+                            'updated'   => date( 'd M, Y', strtotime( $theme->last_updated ) ),
+                            'rating'    => $rating,
+                            'downloads' => $theme->downloaded
+                        );
+
+                        $total_downloads = $total_downloads + $theme->downloaded;
+                    }
+
+                    $data['info']['theme_count']            = $count;
+                    $data['info']['total_theme_downloads']  = $total_downloads;
                 }
             }
         }

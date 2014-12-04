@@ -112,6 +112,81 @@ function wptally_shortcode( $atts, $content = null ) {
                 $results .= '</div>';
             }
         }
+        
+        $themes = wptally_maybe_get_themes( $username, ( isset( $_GET['force'] ) ? $_GET['force'] : false ) );
+
+        if( is_wp_error( $themes ) ) {
+            $results .= 'An error occurred with the themes API. Please try again later.';
+        } else {
+            // How many themes does the user have?
+            $count = count( $themes );
+            $total_downloads = 0;
+            $ratings_count = 0;
+            $ratings_total = 0;
+        
+            if( $count == 0 ) {
+                $results .= 'No themes found for ' . $username . '!';
+            } else {
+                foreach( $themes as $theme ) {
+                    $rating = wptally_get_rating( $theme->num_ratings, $theme->rating );
+
+                    // Theme row
+                    $results .= '<div class="tally-plugin">';
+
+                    // Content left
+                    $results .= '<div class="tally-plugin-left">';
+
+                    // Theme title
+                    $results .= '<a class="tally-plugin-title" href="http://wordpress.org/themes/' . $theme->slug . '" target="_blank">' . $theme->name . '</a>';
+
+                    // Theme meta
+                    $results .= '<div class="tally-plugin-meta">';
+                    $results .= '<span class="tally-plugin-meta-item"><span class="tally-plugin-meta-title">Ver:</span> ' . $theme->version . '</span>';
+                    $results .= '<span class="tally-plugin-meta-item"><span class="tally-plugin-meta-title">Last Updated:</span> ' . date( 'd M, Y', strtotime( $theme->last_updated ) ) . '</span>';
+                    $results .= '<span class="tally-plugin-meta-item"><span class="tally-plugin-meta-title">Rating:</span> ' . ( empty( $rating ) ? 'not yet rated' : $rating . ' out of 5 stars</span>' );
+                    $results .= '</div>';
+
+                    // End content left
+                    $results .= '</div>';
+
+                    // Content right
+                    $results .= '<div class="tally-plugin-right">';
+                    $results .= '<div class="tally-plugin-downloads">' . number_format( $theme->downloaded ) . '</div>';
+                    $results .= '<div class="tally-plugin-downloads-title">Downloads</div>';
+                    $results .= '</div>';
+
+                    // End theme row
+                    $results .= '</div>';
+
+                    $total_downloads = $total_downloads + $theme->downloaded;
+                    
+                    if( ! empty( $rating ) ) {
+                        $ratings_total += $rating;
+                        $ratings_count++;
+                    }
+                }
+                
+                $themes_total = number_format( $count );
+                $themes_reference = $themes_total == 1 ? 'theme' : 'themes';
+                $cumulative_rating = $ratings_total / $ratings_count;
+
+                // Totals row
+                $results .= '<div class="tally-plugin">';
+                $results .= '<div class="tally-plugin-left">';
+                    $results .= '<div class="tally-info">';
+                        $results .= '<span class="tally-count-rating">You have <span class="tally-count">' . $themes_total . '</span> ' . $themes_reference . ( empty( $ratings_count ) ? ' with no ratings.' : ' with a cumulative rating of <span class="tally-rating">' . number_format( $cumulative_rating, 2, '.', '' ) . '</span> out of 5 stars.</span>' );
+                    $results .= '</div>';
+                    $results .= '<div class="tally-share">';
+                        $results .= '<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wptally.com/?wpusername=' . esc_attr( $username ) . '" data-text="My themes on WordPress.org have a total of ' . number_format( $total_downloads ) . ' downloads. Check it out on wptally.com">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\'://platform.twitter.com/widgets.js\';fjs.parentNode.insertBefore(js,fjs);}}(document, \'script\', \'twitter-wjs\');</script>';
+                    $results .= '</div>';
+                $results .= '</div>';
+                $results .= '<div class="tally-plugin-right">';
+                $results .= '<div class="tally-plugin-downloads">' . number_format( $total_downloads ) . '</div>';
+                $results .= '<div class="tally-plugin-downloads-title">Total Downloads</div>';
+                $results .= '</div>';
+            }
+        }
     }
 
     $results .= '</div>';
