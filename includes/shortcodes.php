@@ -113,6 +113,7 @@ function wptally_shortcode( $atts, $content = null ) {
                 $results .= '<div class="tally-plugin-downloads">' . number_format( $total_downloads ) . '</div>';
                 $results .= '<div class="tally-plugin-downloads-title">Total Downloads</div>';
                 $results .= '</div>';
+                $results .= '</div>';
             }
         }
 
@@ -192,6 +193,7 @@ function wptally_shortcode( $atts, $content = null ) {
                 $results .= '<div class="tally-plugin-right">';
                 $results .= '<div class="tally-plugin-downloads">' . number_format( $total_downloads ) . '</div>';
                 $results .= '<div class="tally-plugin-downloads-title">Total Downloads</div>';
+                $results .= '</div>';
                 $results .= '</div>';
             }
         }
