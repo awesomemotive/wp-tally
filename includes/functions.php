@@ -75,7 +75,6 @@ function wptally_maybe_get_themes( $username = false, $force = false ) {
             delete_transient( 'wp-tally-user-themes-' . $username );
         }
 
-            delete_transient( 'wp-tally-user-themes-' . $username );
         if( ! $themes = get_transient( 'wp-tally-user-themes-' . $username ) ) {
             $themes = array();
             $theme_list = themes_api( 'query_themes',
