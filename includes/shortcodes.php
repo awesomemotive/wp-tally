@@ -32,6 +32,9 @@ function wptally_shortcode( $atts, $content = null ) {
     $results = '<div class="tally-search-results">';
 
     if( $username ) {
+        $lookup_count = get_option( 'wptally_lookups' );
+        $lookup_count = $lookup_count ? $lookup_count + 1 : 1;
+        update_option( 'wptally_lookups', $lookup_count );
 
         if( isset( $_GET['force'] ) && $_GET['force'] == 'true' ) {
             delete_transient( 'wp-tally-user-' . $username );

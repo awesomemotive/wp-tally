@@ -90,6 +90,7 @@ if( ! class_exists( 'WPTally' ) ) {
             require_once WPTALLY_DIR . 'includes/functions.php';
             require_once WPTALLY_DIR . 'includes/shortcodes.php';
             require_once WPTALLY_DIR . 'includes/class.wptally-api.php';
+            require_once WPTALLY_DIR . 'includes/dashboard-widgets.php';
         }
 
 

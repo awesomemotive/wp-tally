@@ -105,6 +105,10 @@ class WPTally_API {
                 'error' => 'No username specified'
             );
         } else {
+            $lookup_count = get_option( 'wptally_lookups' );
+            $lookup_count = $lookup_count ? $lookup_count + 1 : 1;
+            update_option( 'wptally_lookups', $lookup_count );
+
             if( isset( $wp_query->query_vars['force'] ) && $wp_query->query_vars['force'] == 'true' ) {
                 delete_transient( 'wp-tally-user-' . $wp_query->query_vars['api'] );
                 delete_transient( 'wp-tally-user-themes-' . $wp_query->query_vars['api'] );
