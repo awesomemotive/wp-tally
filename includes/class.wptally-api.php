@@ -170,7 +170,7 @@ class WPTally_API {
 
                 if( $count == 0 ) {
                     $data['themes'] = array(
-                        'error' => 'No plugins found for ' . $wp_query->query_vars['api']
+                        'error' => 'No themes found for ' . $wp_query->query_vars['api']
                     );
                 } else {
                     foreach( $themes as $theme ) {
