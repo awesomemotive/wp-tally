@@ -146,7 +146,8 @@ class WPTally_API {
                             'added'     => date( 'd M, Y', strtotime( $plugin->added ) ),
                             'updated'   => date( 'd M, Y', strtotime( $plugin->last_updated ) ),
                             'rating'    => $rating,
-                            'downloads' => $plugin->downloaded
+                            'downloads' => $plugin->downloaded,
+                            'installs'  => $plugin->active_installs
                         );
 
                         $total_downloads = $total_downloads + $plugin->downloaded;
@@ -170,7 +171,7 @@ class WPTally_API {
 
                 if( $count == 0 ) {
                     $data['themes'] = array(
-                        'error' => 'No plugins found for ' . $wp_query->query_vars['api']
+                        'error' => 'No themes found for ' . $wp_query->query_vars['api']
                     );
                 } else {
                     foreach( $themes as $theme ) {
