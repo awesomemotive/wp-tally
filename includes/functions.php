@@ -42,7 +42,8 @@ function wptally_maybe_get_plugins( $username = false, $force = false ) {
                         'tags'              => false,
                         'sections'          => false,
                         'added'             => true,
-                        'last_updated'      => true
+                        'last_updated'      => true,
+                        'active_installs'   => true
                     )
                 )
             );
