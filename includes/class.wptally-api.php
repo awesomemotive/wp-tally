@@ -146,7 +146,8 @@ class WPTally_API {
                             'added'     => date( 'd M, Y', strtotime( $plugin->added ) ),
                             'updated'   => date( 'd M, Y', strtotime( $plugin->last_updated ) ),
                             'rating'    => $rating,
-                            'downloads' => $plugin->downloaded
+                            'downloads' => $plugin->downloaded,
+                            'installs'  => $plugin->active_installs
                         );
 
                         $total_downloads = $total_downloads + $plugin->downloaded;
