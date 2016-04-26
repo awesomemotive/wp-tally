@@ -74,7 +74,7 @@ function wptally_shortcode( $atts, $content = null ) {
                     $results .= '<span class="tally-plugin-meta-item"><span class="tally-plugin-meta-title">Ver:</span> ' . $plugin->version . '</span>';
                     $results .= '<span class="tally-plugin-meta-item"><span class="tally-plugin-meta-title">Added:</span> ' . date( 'd M, Y', strtotime( $plugin->added ) ) . '</span>';
                     $results .= '<span class="tally-plugin-meta-item"><span class="tally-plugin-meta-title">Last Updated:</span> ' . date( 'd M, Y', strtotime( $plugin->last_updated ) ) . '</span>';
-                    $results .= '<span class="tally-plugin-meta-item"><span class="tally-plugin-meta-title">Rating:</span> ' . ( empty( $rating ) ? 'not yet rated' : $rating . ' out of 5 stars</span>' );
+                    $results .= '<span class="tally-plugin-meta-item"><span class="tally-plugin-meta-title">Rating:</span> ' . ( empty( $rating ) ? 'not yet rated' : $rating . ' out of 5 stars' ) . '</span>';
                     $results .= '<span class="tally-plugin-meta-item"><span class="tally-plugin-meta-title">Active Installs:</span> ' . number_format( $plugin->active_installs ) . '</span>';
                     $results .= '</div>';
 
@@ -156,7 +156,7 @@ function wptally_shortcode( $atts, $content = null ) {
                     $results .= '<div class="tally-plugin-meta">';
                     $results .= '<span class="tally-plugin-meta-item"><span class="tally-plugin-meta-title">Ver:</span> ' . $theme->version . '</span>';
                     $results .= '<span class="tally-plugin-meta-item"><span class="tally-plugin-meta-title">Last Updated:</span> ' . date( 'd M, Y', strtotime( $theme->last_updated ) ) . '</span>';
-                    $results .= '<span class="tally-plugin-meta-item"><span class="tally-plugin-meta-title">Rating:</span> ' . ( empty( $rating ) ? 'not yet rated' : $rating . ' out of 5 stars</span>' );
+                    $results .= '<span class="tally-plugin-meta-item"><span class="tally-plugin-meta-title">Rating:</span> ' . ( empty( $rating ) ? 'not yet rated' : $rating . ' out of 5 stars' ) . '</span>';
                     $results .= '</div>';
 
                     // End content left
