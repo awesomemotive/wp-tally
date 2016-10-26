@@ -158,3 +158,8 @@
     text-align: center;
     text-transform: uppercase;
 }
+
+.tally-share iframe {
+    float: left;
+    margin: 20px 10px 20px 0;
+}

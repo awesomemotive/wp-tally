@@ -115,6 +115,7 @@ function wptally_shortcode( $atts, $content = null ) {
                     $results .= '<div class="tally-share">';
                         $results .= '<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wptally.com/?wpusername=' . esc_attr( $username ) . '" data-text="My plugins on WordPress.org have a total of ' . number_format( $total_downloads ) . ' downloads. Check it out on wptally.com">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\'://platform.twitter.com/widgets.js\';fjs.parentNode.insertBefore(js,fjs);}}(document, \'script\', \'twitter-wjs\');</script>';
+                        $results .= '<iframe src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Fwptally.com%2F%3Fwpusername%3D' . esc_attr( $username ) . '&layout=button&size=small&mobile_iframe=true&appId=592073487648800&width=59&height=20" width="59" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
                     $results .= '</div>';
                 $results .= '</div>';
                 $results .= '<div class="tally-plugin-right">';
@@ -192,6 +193,7 @@ function wptally_shortcode( $atts, $content = null ) {
                     $results .= '<div class="tally-share">';
                         $results .= '<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wptally.com/?wpusername=' . esc_attr( $username ) . '" data-text="My themes on WordPress.org have a total of ' . number_format( $total_downloads ) . ' downloads. Check it out on wptally.com">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\'://platform.twitter.com/widgets.js\';fjs.parentNode.insertBefore(js,fjs);}}(document, \'script\', \'twitter-wjs\');</script>';
+                        $results .= '<iframe src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Fwptally.com%2F%3Fwpusername%3D' . esc_attr( $username ) . '&layout=button&size=small&mobile_iframe=true&appId=592073487648800&width=59&height=20" width="59" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
                     $results .= '</div>';
                 $results .= '</div>';
                 $results .= '<div class="tally-plugin-right">';
