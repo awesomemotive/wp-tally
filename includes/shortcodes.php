@@ -24,6 +24,8 @@ function wptally_shortcode( $atts, $content = null ) {
     $active            = ( isset( $_GET['active'] ) && ! empty( $_GET['active'] ) && $_GET['active'] == 'themes' ? 'themes' : 'plugins' );
     $theme_visibility  = ( $active == 'themes' ? '' : ' style="display: none;"' );
     $plugin_visibility = ( $active == 'plugins' ? '' : ' style="display: none;"' );
+    $order_by          = ( isset( $_GET['by'] ) && $_GET['by'] == 'downloads' ? 'downloaded' : 'name' );
+    $sort              = ( isset( $_GET['dir'] ) && strtolower( $_GET['dir'] ) == 'desc' ? 'desc' : 'asc' );
 
     $search_field  = '<div class="tally-search-box">';
     $search_field .= '<form class="tally-search-form" method="get" action="">';
@@ -32,7 +34,7 @@ function wptally_shortcode( $atts, $content = null ) {
     $search_field .= '</form>';
     $search_field .= '</div>';
 
-    $results = '<div class="tally-search-results">';
+    $results = '<div class="tally-search-results" id="search-results">';
 
     if( $username ) {
         $lookup_count = get_option( 'wptally_lookups' );
@@ -49,12 +51,32 @@ function wptally_shortcode( $atts, $content = null ) {
         $results .= '<a class="tally-search-results-plugins-header' . ( $active == 'plugins' ? ' active' : '' ) . '">Plugins</a>';
         $results .= '<a class="tally-search-results-themes-header' . ( $active == 'themes' ? ' active' : '' ) . '">Themes</a>';
 
+        $results .= '<div class="tally-search-results-sort">';
+            $results .= '<div class="tally-search-results-sort-by">';
+                $results .= '<span class="tally-search-results-sort-title">Order By: </span>';
+                $results .= '<a href="' . add_query_arg( 'by', 'name' ) . '#search-results"' . ( $order_by == 'name' ? ' class="active"' : '' ) . '>Name</a>';
+                $results .= ' / ';
+                $results .= '<a href="' . add_query_arg( 'by', 'downloads' ) . '#search-results"' . ( $order_by == 'downloaded' ? ' class="active"' : '' ) . '>Downloads</a>';
+            $results .= '</div>';
+            $results .= '<div class="tally-search-results-order">';
+                $results .= '<span class="tally-search-results-sort-title">Sort: </span>';
+                $results .= '<a href="' . add_query_arg( 'dir', 'asc' ) . '#search-results"' . ( $sort == 'asc' ? ' class="active"' : '' ) . '>ASC</a>';
+                $results .= ' / ';
+                $results .= '<a href="' . add_query_arg( 'dir', 'desc' ) . '#search-results"' . ( $sort == 'desc' ? ' class="active"' : '' ) . '>DESC</a>';
+            $results .= '</div>';
+        $results .= '</div>';
+
         $results .= '<div class="tally-search-results-plugins"' . $plugin_visibility . '>';
         if( is_wp_error( $plugins ) ) {
             $results .= '<div class="tally-search-error">An error occurred with the plugins API. Please try again later.</div>';
         } else {
+            $plugins = $plugins->plugins;
+
+            // Maybe sort plugins
+            $plugins = wptally_sort( $plugins, $order_by, $sort );
+
             // How many plugins does the user have?
-            $count = count( $plugins->plugins );
+            $count = count( $plugins );
             $total_downloads = 0;
             $ratings_count = 0;
             $ratings_total = 0;
@@ -62,7 +84,7 @@ function wptally_shortcode( $atts, $content = null ) {
             if( $count == 0 ) {
                 $results .= '<div class="tally-search-error">No plugins found for ' . $username . '!</div>';
             } else {
-                foreach( $plugins->plugins as $plugin ) {
+                foreach( $plugins as $plugin ) {
                     $rating = wptally_get_rating( $plugin->num_ratings, $plugin->ratings );
 
                     // Plugin row
@@ -128,6 +150,9 @@ function wptally_shortcode( $atts, $content = null ) {
         $results .= '</div>';
 
         $themes = wptally_maybe_get_themes( $username, ( isset( $_GET['force'] ) ? $_GET['force'] : false ) );
+
+        // Maybe sort themes
+        $themes = wptally_sort( $themes, $order_by, $sort );
 
         $results .= '<div class="tally-search-results-themes"' . $theme_visibility . '>';
         if( is_wp_error( $themes ) ) {

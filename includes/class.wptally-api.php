@@ -75,6 +75,8 @@ class WPTally_API {
      */
     public function query_vars( $vars ) {
         $vars[] = 'username';
+        $vars[] = 'order-by';
+        $vars[] = 'sort';
         $vars[] = 'force';
         $vars[] = 'format';
 
@@ -115,6 +117,9 @@ class WPTally_API {
                 $force = true;
             }
 
+            $order_by = ( isset( $wp_query->query_vars['order-by'] ) && $wp_query->query_vars['order-by'] == 'downloads' ? 'downloaded' : 'name' );
+            $sort     = ( isset( $wp_query->query_vars['sort'] ) && strtolower( $wp_query->query_vars['sort'] ) == 'desc' ? 'desc' : 'asc' );
+
             $data['info'] = array(
                 'user'      => $wp_query->query_vars['api'],
                 'profile'   => 'https://profiles.wordpress.org/' . $wp_query->query_vars['api']
@@ -136,7 +141,12 @@ class WPTally_API {
                         'error' => 'No plugins found for ' . $wp_query->query_vars['api']
                     );
                 } else {
-                    foreach( $plugins->plugins as $plugin ) {
+                    $plugins = $plugins->plugins;
+
+                    // Maybe sort plugins
+                    $plugins = wptally_sort( $plugins, $order_by, $sort );
+
+                    foreach( $plugins as $plugin ) {
                         $rating = wptally_get_rating( $plugin->num_ratings, $plugin->ratings );
 
                         $data['plugins'][$plugin->slug] = array(
@@ -157,7 +167,7 @@ class WPTally_API {
                     $data['info']['total_plugin_downloads'] = $total_downloads;
                 }
             }
-            
+
             $themes = wptally_maybe_get_themes( $wp_query->query_vars['api'], ( isset( $force ) ? true : false ) );
 
             if( is_wp_error( $themes ) ) {
@@ -174,6 +184,11 @@ class WPTally_API {
                         'error' => 'No themes found for ' . $wp_query->query_vars['api']
                     );
                 } else {
+                    $themes = $themes->themes;
+
+                    // Maybe sort themes
+                    $themes = wptally_sort( $themes, $order_by, $sort );
+
                     foreach( $themes as $theme ) {
                         $rating = wptally_get_rating( $theme->num_ratings, $theme->rating );
 
@@ -270,4 +285,3 @@ class WPTally_API {
         die();
     }
 }
-

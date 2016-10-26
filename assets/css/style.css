@@ -99,6 +99,31 @@
     color: #fff;
 }
 
+.tally-search-results-sort {
+    border-bottom: 1px solid #303538;
+    background: #f8fafb;
+    font-size: 1rem;
+    text-align: right;
+}
+
+.tally-search-results-sort-by, .tally-search-results-order {
+    display: inline-block;
+    padding: 0 10px;
+}
+
+.tally-search-results-sort a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.tally-search-results-sort a.active {
+    text-decoration: underline;
+}
+
+.tally-search-results-sort-title {
+    font-weight: 700;
+}
+
 .tally-search-error {
     padding: 10px;
     font-size: 1.5rem;
