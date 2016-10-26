@@ -20,7 +20,10 @@ if( ! defined( 'ABSPATH' ) ) exit;
  * @return      string $return The Tally form and ouput
  */
 function wptally_shortcode( $atts, $content = null ) {
-    $username = ( isset( $_GET['wpusername'] ) && ! empty( $_GET['wpusername'] ) ? $_GET['wpusername'] : false );
+    $username          = ( isset( $_GET['wpusername'] ) && ! empty( $_GET['wpusername'] ) ? $_GET['wpusername'] : false );
+    $active            = ( isset( $_GET['active'] ) && ! empty( $_GET['active'] ) && $_GET['active'] == 'themes' ? 'themes' : 'plugins' );
+    $theme_visibility  = ( $active == 'themes' ? '' : ' style="display: none;"' );
+    $plugin_visibility = ( $active == 'plugins' ? '' : ' style="display: none;"' );
 
     $search_field  = '<div class="tally-search-box">';
     $search_field .= '<form class="tally-search-form" method="get" action="">';
@@ -42,9 +45,11 @@ function wptally_shortcode( $atts, $content = null ) {
 
         $plugins = wptally_maybe_get_plugins( $username, ( isset( $_GET['force'] ) ? $_GET['force'] : false ) );
 
-        $results .= '<div class="tally-search-results-plugins">';
-        $results .= '<div class="tally-search-results-header">Plugins</div>';
+        $results .= '<div class="tally-search-results-wrapper">';
+        $results .= '<a class="tally-search-results-plugins-header' . ( $active == 'plugins' ? ' active' : '' ) . '">Plugins</a>';
+        $results .= '<a class="tally-search-results-themes-header' . ( $active == 'themes' ? ' active' : '' ) . '">Themes</a>';
 
+        $results .= '<div class="tally-search-results-plugins"' . $plugin_visibility . '>';
         if( is_wp_error( $plugins ) ) {
             $results .= '<div class="tally-search-error">An error occurred with the plugins API. Please try again later.</div>';
         } else {
@@ -53,7 +58,7 @@ function wptally_shortcode( $atts, $content = null ) {
             $total_downloads = 0;
             $ratings_count = 0;
             $ratings_total = 0;
-        
+
             if( $count == 0 ) {
                 $results .= '<div class="tally-search-error">No plugins found for ' . $username . '!</div>';
             } else {
@@ -91,13 +96,13 @@ function wptally_shortcode( $atts, $content = null ) {
                     $results .= '</div>';
 
                     $total_downloads = $total_downloads + $plugin->downloaded;
-                    
+
                     if( ! empty( $rating ) ) {
                         $ratings_total += $rating;
                         $ratings_count++;
                     }
                 }
-                
+
                 $plugins_total = number_format( $count );
                 $plugins_reference = $plugins_total == 1 ? 'plugin' : 'plugins';
                 $cumulative_rating = $ratings_total / $ratings_count;
@@ -120,14 +125,11 @@ function wptally_shortcode( $atts, $content = null ) {
                 $results .= '</div>';
             }
         }
-
         $results .= '</div>';
-        
+
         $themes = wptally_maybe_get_themes( $username, ( isset( $_GET['force'] ) ? $_GET['force'] : false ) );
 
-        $results .= '<div class="tally-search-results-themes">';
-        $results .= '<div class="tally-search-results-header">Themes</div>';
-
+        $results .= '<div class="tally-search-results-themes"' . $theme_visibility . '>';
         if( is_wp_error( $themes ) ) {
             $results .= '<div class="tally-search-error">An error occurred with the themes API. Please try again later.</div>';
         } else {
@@ -136,7 +138,7 @@ function wptally_shortcode( $atts, $content = null ) {
             $total_downloads = 0;
             $ratings_count = 0;
             $ratings_total = 0;
-        
+
             if( $count == 0 ) {
                 $results .= '<div class="tally-search-error">No themes found for ' . $username . '!</div>';
             } else {
@@ -172,13 +174,13 @@ function wptally_shortcode( $atts, $content = null ) {
                     $results .= '</div>';
 
                     $total_downloads = $total_downloads + $theme->downloaded;
-                    
+
                     if( ! empty( $rating ) ) {
                         $ratings_total += $rating;
                         $ratings_count++;
                     }
                 }
-                
+
                 $themes_total = number_format( $count );
                 $themes_reference = $themes_total == 1 ? 'theme' : 'themes';
                 $cumulative_rating = $ratings_total / $ratings_count;
@@ -201,7 +203,6 @@ function wptally_shortcode( $atts, $content = null ) {
                 $results .= '</div>';
             }
         }
-
         $results .= '</div>';
     }
 

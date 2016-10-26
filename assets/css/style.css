@@ -60,25 +60,43 @@
     margin-top: 25px;
 }
 
-.tally-search-results-plugins,
-.tally-search-results-themes {
+.tally-search-results-wrapper {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
     border: 1px solid #303538;
 }
 
-.tally-search-results-plugins {
-    margin-bottom: 20px;
+.tally-search-results-plugins-header {
+    -webkit-border-top-left-radius: 5px;
+    -moz-border-top-left-radius: 5px;
+    border-top-left-radius: 5px;
 }
 
-.tally-search-results-header {
-    background-color: #303538;
-    color: #fff;
+.tally-search-results-themes-header {
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-top-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.tally-search-results-plugins-header,
+.tally-search-results-themes-header {
+    background-color: #f8fafb;
+    color: #303538;
     font-weight: bold;
     font-size: 2rem;
     text-align: center;
     padding: 10px 0;
+    width: 50%;
+    display: inline-block;
+    cursor: pointer;
+    border-bottom: 1px solid #303538;
+}
+
+.tally-search-results-plugins-header.active,
+.tally-search-results-themes-header.active {
+    background-color: #303538;
+    color: #fff;
 }
 
 .tally-search-error {
@@ -89,6 +107,10 @@
 .tally-plugin {
     width: 100%;
     border-top: 1px solid #303538;
+}
+
+.tally-plugin:first-child {
+    border-top: 0;
 }
 
 .tally-plugin:last-child {

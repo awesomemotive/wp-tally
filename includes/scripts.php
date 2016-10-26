@@ -18,7 +18,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
  * @return      void
  */
 function wptally_load_scripts() {
-    //wp_enqueue_script( 'wptally', WPTALLY_URL . 'assets/js/scripts.js', array( 'jquery' ) );
+    wp_enqueue_script( 'wptally', WPTALLY_URL . 'assets/js/wptally.js', array( 'jquery' ) );
     wp_enqueue_style( 'wptally', WPTALLY_URL . 'assets/css/style.css' );
 }
 add_action( 'wp_enqueue_scripts', 'wptally_load_scripts' );
