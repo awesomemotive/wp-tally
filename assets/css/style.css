@@ -98,10 +98,9 @@
 }
 
 .tally-plugin-left {
-    width: 80%;
+    width: 75%;
     display: inline-block;
     padding-left: 10px;
-    margin-right: -10px;
 }
 
 .tally-plugin-title {
@@ -125,6 +124,7 @@
 .tally-plugin-right {
     width: 20%;
     display: inline-block;
+    float: right;
 }
 
 .tally-plugin-downloads {
