@@ -186,8 +186,6 @@ class WPTally_API {
 						'error' => 'No themes found for ' . $wp_query->query_vars['api']
 					);
 				} else {
-					$themes = $themes->themes;
-
 					// Maybe sort themes
 					$themes = wptally_sort( $themes, $order_by, $sort );
 
