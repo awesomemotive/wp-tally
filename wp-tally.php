@@ -3,7 +3,7 @@
  * Plugin Name:     WP Tally
  * Plugin URI:      http://wptally.com
  * Description:     Track your total WordPress plugin and theme downloads
- * Version:         1.2.0
+ * Version:         1.2.1
  * Author:          Pippin Williamson, Daniel J Griffiths & Sean Davis
  * Author URI:      http://easydigitaldownloads.com
  *
