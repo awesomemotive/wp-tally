@@ -8,7 +8,9 @@
 
 
 // Exit if accessed directly
-if( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 
 /**
@@ -18,8 +20,8 @@ if( ! defined( 'ABSPATH' ) ) exit;
  * @return      void
  */
 function wptally_load_scripts() {
-    wp_enqueue_script( 'wptally', WPTALLY_URL . 'assets/js/wptally.js', array( 'jquery' ) );
-    wp_enqueue_style( 'wptally', WPTALLY_URL . 'assets/css/style.css' );
+	wp_enqueue_script( 'wptally', WPTALLY_URL . 'assets/js/wptally.js', array( 'jquery' ) );
+	wp_enqueue_style( 'wptally', WPTALLY_URL . 'assets/css/style.css' );
 }
 add_action( 'wp_enqueue_scripts', 'wptally_load_scripts' );
 
@@ -31,6 +33,6 @@ add_action( 'wp_enqueue_scripts', 'wptally_load_scripts' );
  * @return      void
  */
 function wptally_load_admin_scripts() {
-    wp_enqueue_style( 'wptally', WPTALLY_URL . 'assets/css/admin.css' );
+	wp_enqueue_style( 'wptally', WPTALLY_URL . 'assets/css/admin.css' );
 }
 add_action( 'admin_enqueue_scripts', 'wptally_load_admin_scripts' );
