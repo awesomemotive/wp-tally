@@ -149,20 +149,20 @@ class WPTally_API {
 					$plugins = wptally_sort( $plugins, $order_by, $sort );
 
 					foreach ( $plugins as $plugin ) {
-						$rating = wptally_get_rating( $plugin->num_ratings, $plugin->ratings );
+						$rating = wptally_get_rating( $plugin['num_ratings'], $plugin['ratings'] );
 
-						$data['plugins'][ $plugin->slug ] = array(
-							'name'      => $plugin->name,
-							'url'       => 'http://wordpress.org/plugins/' . $plugin->slug,
-							'version'   => $plugin->version,
-							'added'     => date( 'd M, Y', strtotime( $plugin->added ) ),
-							'updated'   => date( 'd M, Y', strtotime( $plugin->last_updated ) ),
+						$data['plugins'][ $plugin['slug'] ] = array(
+							'name'      => $plugin['name'],
+							'url'       => 'http://wordpress.org/plugins/' . $plugin['slug'],
+							'version'   => $plugin['version'],
+							'added'     => date( 'd M, Y', strtotime( $plugin['added'] ) ),
+							'updated'   => date( 'd M, Y', strtotime( $plugin['last_updated'] ) ),
 							'rating'    => $rating,
-							'downloads' => $plugin->downloaded,
-							'installs'  => $plugin->active_installs
+							'downloads' => $plugin['downloaded'],
+							'installs'  => $plugin['active_installs']
 						);
 
-						$total_downloads = $total_downloads + $plugin->downloaded;
+						$total_downloads = $total_downloads + $plugin['downloaded'];
 					}
 
 					$data['info']['plugin_count']           = $count;
@@ -190,18 +190,18 @@ class WPTally_API {
 					$themes = wptally_sort( $themes, $order_by, $sort );
 
 					foreach ( $themes as $theme ) {
-						$rating = wptally_get_rating( $theme->num_ratings, $theme->rating );
+						$rating = wptally_get_rating( $theme['num_ratings'], $theme['rating'] );
 
-						$data['themes'][ $theme->slug ] = array(
-							'name'      => $theme->name,
-							'url'       => 'http://wordpress.org/themes/' . $theme->slug,
-							'version'   => $theme->version,
-							'updated'   => date( 'd M, Y', strtotime( $theme->last_updated ) ),
+						$data['themes'][ $theme['slug'] ] = array(
+							'name'      => $theme['name'],
+							'url'       => 'http://wordpress.org/themes/' . $theme['slug'],
+							'version'   => $theme['version'],
+							'updated'   => date( 'd M, Y', strtotime( $theme['last_updated'] ) ),
 							'rating'    => $rating,
-							'downloads' => $theme->downloaded
+							'downloads' => $theme['downloaded']
 						);
 
-						$total_downloads = $total_downloads + $theme->downloaded;
+						$total_downloads = $total_downloads + $theme['downloaded'];
 					}
 
 					$data['info']['theme_count']           = $count;
