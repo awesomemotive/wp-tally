@@ -88,7 +88,7 @@ function wptally_maybe_get_themes( $username = false, $force = false ) {
 			);
 
 			foreach( $theme_list->themes as $id => $data ) {
-				$themes[] = themes_api( 'theme_information',
+				$themes[] = (array) themes_api( 'theme_information',
 					array(
 						'slug'   => $data->slug,
 						'fields' => array(
@@ -175,21 +175,21 @@ function wptally_sort( $items, $order_by, $sort ) {
 	if ( $order_by == 'downloaded' ) {
 		if ( $sort == 'desc' ) {
 			usort( $items, function( $a, $b ) {
-				return ( $b->downloaded - $a->downloaded );
+				return ( $b['downloaded'] - $a['downloaded'] );
 			} );
 		} else {
 			usort( $items, function( $a, $b ) {
-				return ( $a->downloaded - $b->downloaded );
+				return ( $a['downloaded'] - $b['downloaded'] );
 			} );
 		}
 	} else {
 		if ( $sort == 'desc' ) {
 			usort( $items, function( $a, $b ) {
-				return strcmp( $b->slug, $a->slug );
+				return strcmp( $b['slug'], $a['slug'] );
 			} );
 		} else {
 			usort( $items, function( $a, $b ) {
-				return strcmp( $a->slug, $b->slug );
+				return strcmp( $a['slug'], $b['slug'] );
 			} );
 		}
 	}
